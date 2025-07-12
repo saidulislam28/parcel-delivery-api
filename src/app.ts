@@ -1,12 +1,13 @@
-import express from "express";
-import { UserRoutes } from "./app/modules/user/user.routes";
 import cors from "cors";
+import express from "express";
+import { globalMiddleHandler } from "./middleware/globalErrorHandler";
+import { router } from "./routes";
 const app = express();
 
 app.use(express.json());
 app.use(cors());
 
-app.use("/api/v1/user", UserRoutes);
+app.use("/api/v1", router);
 
 app.get("/", (req, res) => {
   res.status(200).json({
@@ -14,5 +15,7 @@ app.get("/", (req, res) => {
     success: true,
   });
 });
+
+app.use(globalMiddleHandler);
 
 export default app;
