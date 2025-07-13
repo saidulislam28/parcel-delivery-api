@@ -8,6 +8,8 @@ interface ENV_VARS {
   NODE_ENV: string;
   JWT_ACCESS_TOKEN_EXPIRES: string;
   JWT_SECRET: string;
+  SUPER_ADMIN_EMAIL: string;
+  SUPER_ADMIN_PASS: string;
 }
 
 const loadEnvVars = (): ENV_VARS => {
@@ -17,6 +19,8 @@ const loadEnvVars = (): ENV_VARS => {
     "NODE_ENV",
     "JWT_ACCESS_TOKEN_EXPIRES",
     "JWT_SECRET",
+    "SUPER_ADMIN_PASS",
+    "SUPER_ADMIN_EMAIL",
   ];
 
   envArray.forEach((key) => {
@@ -31,6 +35,8 @@ const loadEnvVars = (): ENV_VARS => {
     NODE_ENV: process.env.NODE_ENV as string,
     JWT_ACCESS_TOKEN_EXPIRES: process.env.JWT_ACCESS_TOKEN_EXPIRES as string,
     JWT_SECRET: process.env.JWT_SECRET as string,
+    SUPER_ADMIN_EMAIL: process.env.SUPER_ADMIN_EMAIL as string,
+    SUPER_ADMIN_PASS: process.env.SUPER_ADMIN_PASS as string,
   };
 };
 
