@@ -9,7 +9,6 @@ import { superAdminSeeder } from "./utils/seeder";
 let server: Server;
 const starterServer = async () => {
   try {
-
     // console.log(envVars.NODE_ENV)
 
     await mongoose.connect(envVars.DB_URL);
@@ -24,8 +23,10 @@ const starterServer = async () => {
   }
 };
 
-starterServer();
-superAdminSeeder();
+(async () => {
+  await starterServer();
+  await superAdminSeeder();
+})();
 
 process.on("unhandledRejection", (err) => {
   console.log("unhandled rejection detected.. server shutting down", err);

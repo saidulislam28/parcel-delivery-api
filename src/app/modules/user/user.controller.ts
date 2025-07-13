@@ -4,6 +4,37 @@ import httpStatus from "http-status-codes";
 import { userService } from "./user.service";
 import { CatchAsync } from "../../../utils/catchAsync";
 import { sendResponse } from "../../../utils/response.helper";
+import { verifyToken } from "../../../utils/jwt";
+import { envVars } from "../../../configs/env";
+import { JwtPayload } from "jsonwebtoken";
+
+const updateUserController = CatchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const userId = req.params.id;
+    const token = req.headers.authorization;
+    const verifiedToken = verifyToken(token as string, envVars.JWT_SECRET);
+
+    const payload = req.body;
+
+    const user = await userService.updateUser(
+      userId,
+      payload,
+      verifiedToken as JwtPayload
+    );
+
+    sendResponse(res, {
+      success: true,
+      message: "User updated Successfully",
+      statusCode: httpStatus.OK,
+      data: user,
+    });
+
+    // res.status(httpStatus.CREATED).json({
+    //   message: "User Created Successfully",
+    //   user,
+    // });
+  }
+);
 
 const createUser = CatchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
@@ -60,4 +91,5 @@ const getAllUsers = CatchAsync(
 export const userController = {
   createUser,
   getAllUsers,
+  updateUserController,
 };
