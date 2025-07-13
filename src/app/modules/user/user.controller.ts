@@ -43,7 +43,7 @@ const getAllUsers = CatchAsync(
 
     sendResponse(res, {
       success: true,
-      message: "User Created Successfully",
+      message: "User retrieved Successfully",
       statusCode: httpStatus.CREATED,
       data: result.data,
       meta: result.meta,
