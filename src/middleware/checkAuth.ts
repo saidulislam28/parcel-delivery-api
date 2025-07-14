@@ -17,6 +17,11 @@ export const checkAuth =
         envVars.JWT_SECRET
       ) as JwtPayload;
 
+
+      req.user = verifyToken
+
+
+
       console.log(jwtVerifyToken);
 
       if (!authRoles.includes(jwtVerifyToken.role)) {
