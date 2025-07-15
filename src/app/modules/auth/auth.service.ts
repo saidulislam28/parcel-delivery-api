@@ -1,11 +1,10 @@
+import bcryptjs from "bcryptjs";
+import httpStatus from "http-status-codes";
+import { envVars } from "../../../configs/env";
 import AppError from "../../../helpers/CustomError";
+import { generateToken } from "../../../utils/jwt";
 import { IUser } from "../user/user.interface";
 import { User } from "../user/user.model";
-import httpStatus from "http-status-codes";
-import bcryptjs from "bcryptjs";
-import jwt from "jsonwebtoken";
-import { envVars } from "../../../configs/env";
-import { generateToken } from "../../../utils/jwt";
 
 const credentialsLogin = async (payload: Partial<IUser>) => {
   const { email, password } = payload;
@@ -36,9 +35,18 @@ const credentialsLogin = async (payload: Partial<IUser>) => {
     envVars.JWT_SECRET,
     envVars.JWT_ACCESS_TOKEN_EXPIRES
   );
+  const jwtRefreshToken = generateToken(
+    jwtPayload,
+    envVars.JWT_REFRESH_SECRET,
+    envVars.JWT_REFRESH_TOKEN_EXPIRES
+  );
+
+  const userWithoutPassword = await User.findOne({ email }).select("-password");
 
   return {
     jwtToken,
+    jwtRefreshToken,
+   user: userWithoutPassword,
   };
 };
 

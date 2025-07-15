@@ -10,6 +10,8 @@ interface ENV_VARS {
   JWT_SECRET: string;
   SUPER_ADMIN_EMAIL: string;
   SUPER_ADMIN_PASS: string;
+  JWT_REFRESH_TOKEN_EXPIRES: string;
+  JWT_REFRESH_SECRET: string;
 }
 
 const loadEnvVars = (): ENV_VARS => {
@@ -21,6 +23,8 @@ const loadEnvVars = (): ENV_VARS => {
     "JWT_SECRET",
     "SUPER_ADMIN_PASS",
     "SUPER_ADMIN_EMAIL",
+    "JWT_REFRESH_SECRET",
+    "JWT_REFRESH_TOKEN_EXPIRES",
   ];
 
   envArray.forEach((key) => {
@@ -37,6 +41,8 @@ const loadEnvVars = (): ENV_VARS => {
     JWT_SECRET: process.env.JWT_SECRET as string,
     SUPER_ADMIN_EMAIL: process.env.SUPER_ADMIN_EMAIL as string,
     SUPER_ADMIN_PASS: process.env.SUPER_ADMIN_PASS as string,
+    JWT_REFRESH_SECRET: process.env.JWT_REFRESH_SECRET as string,
+    JWT_REFRESH_TOKEN_EXPIRES: process.env.JWT_REFRESH_TOKEN_EXPIRES as string,
   };
 };
 
