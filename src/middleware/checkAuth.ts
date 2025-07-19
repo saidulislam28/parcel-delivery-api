@@ -9,18 +9,19 @@ export const checkAuth =
   (req: Request, res: Response, next: NextFunction) => {
     try {
       const token = req.headers.authorization;
+      
+      console.log(token);
+
       if (!token) {
         throw new AppError(403, "Token not given");
       }
+
       const jwtVerifyToken = verifyToken(
         token,
         envVars.JWT_SECRET
       ) as JwtPayload;
 
-
-      req.user = verifyToken
-
-
+      req.user = jwtVerifyToken;
 
       console.log(jwtVerifyToken);
 

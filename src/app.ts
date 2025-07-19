@@ -3,8 +3,10 @@ import express from "express";
 import { globalMiddleHandler } from "./middleware/globalErrorHandler";
 import { router } from "./routes";
 import NotFoundRoute from "./middleware/not_Found";
-const app = express();
+import cookieParser from "cookie-parser";
 
+const app = express();
+app.use(cookieParser())
 app.use(express.json());
 app.use(cors());
 
