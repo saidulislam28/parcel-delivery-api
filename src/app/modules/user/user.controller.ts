@@ -1,12 +1,11 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { NextFunction, Request, Response } from "express";
 import httpStatus from "http-status-codes";
-import { userService } from "./user.service";
+import { JwtPayload } from "jsonwebtoken";
 import { CatchAsync } from "../../../utils/catchAsync";
 import { sendResponse } from "../../../utils/response.helper";
-import { verifyToken } from "../../../utils/jwt";
-import { envVars } from "../../../configs/env";
-import { JwtPayload } from "jsonwebtoken";
+import { userService } from "./user.service";
 
 const updateUserController = CatchAsync(
   async (req: Request, res: Response, next: NextFunction) => {

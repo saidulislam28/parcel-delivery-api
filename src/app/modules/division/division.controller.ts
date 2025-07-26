@@ -38,7 +38,6 @@ const UpdateDivision = async (
 ) => {
   const divId: string = req.params.id;
   const payload = req.body;
-
   const division = await divisionService.UpdateDivision(divId, payload);
 
   sendResponse(res, {
@@ -49,8 +48,24 @@ const UpdateDivision = async (
   });
 };
 
+const DeleteDivision = CatchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const divisionId: string = req.params.id;
+
+    const division = await divisionService.DeleteDivision(divisionId);
+
+    sendResponse(res, {
+      success: true,
+      message: "Division Created Successfully",
+      statusCode: httpStatus.CREATED,
+      data: division,
+    });
+  }
+);
+
 export const divisionController = {
   CreateDivision,
   GetAllDivision,
   UpdateDivision,
+  DeleteDivision,
 };
