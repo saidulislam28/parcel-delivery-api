@@ -27,7 +27,7 @@ const UpdateTourType = async (id: string, payload: Partial<ITourType>) => {
   const findTour = await TourType.findOne({ name: payload.name });
 
   if (findTour) {
-   throw new AppError(httpStatus.BAD_REQUEST, "Already exist!!!")
+    throw new AppError(httpStatus.BAD_REQUEST, "Already exist!!!");
   }
 
   const tour = await TourType.findByIdAndUpdate(id, payload, {
@@ -73,8 +73,20 @@ const CreateTour = async (payload: ITour) => {
 
   return tour;
 };
-const GetAllTour = async () => {
-  const tour = await Tour.find();
+const GetAllTour = async (query: any) => {
+  console.log(query);
+  const filter = query;
+  const searchTerm = query.search;
+
+  delete filter["search"];
+
+  const tour = await Tour.find({
+    $or: [
+      { title: { $regex: searchTerm, $options: "i" } },
+      { description: { $regex: searchTerm, $options: "i" } },
+      { location: { $regex: searchTerm, $options: "i" } },
+    ],
+  }).find(filter);
 
   return tour;
 };

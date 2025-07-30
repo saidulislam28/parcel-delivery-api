@@ -13,4 +13,15 @@ const divisionSchema = new Schema<IDivision>(
   }
 );
 
+
+divisionSchema.pre("save", async function(next){
+
+  
+
+
+  next();
+})
+
+
+
 export const Division = model<IDivision>("Division", divisionSchema);

@@ -18,6 +18,7 @@ const credentialsLogin = async (payload: Partial<IUser>) => {
     throw new AppError(httpStatus.BAD_REQUEST, "user not exist");
   }
 
+  console.log("hitting1>>");
   const isMatchPassword = await bcryptjs.compare(
     password as string,
     isUserExist.password as string
@@ -69,9 +70,9 @@ const ResetPassword = async (
   const hashedPassword = await bcryptjs.hash(newPassword, 10);
 
   const updatePassword = await User.findOneAndUpdate(
-    { email: decodedToken.email }, 
+    { email: decodedToken.email },
     { password: hashedPassword },
-    { new: true } 
+    { new: true }
   );
 
   return true;

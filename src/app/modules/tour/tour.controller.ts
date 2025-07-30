@@ -64,9 +64,6 @@ const DeleteTourType = CatchAsync(
   }
 );
 
-
-
-
 const CreateTour = CatchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const Tour = await tourService.CreateTour(req.body);
@@ -81,7 +78,10 @@ const CreateTour = CatchAsync(
 );
 const GetAllTour = CatchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const Tour = await tourService.GetAllTour();
+    const query = req.query;
+
+    // console.log(query);
+    const Tour = await tourService.GetAllTour(query);
 
     sendResponse(res, {
       success: true,
