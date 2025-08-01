@@ -2,8 +2,8 @@
 import { Server } from "http";
 import mongoose from "mongoose";
 import app from "./app";
-import { envVars } from "./configs/env";
-import { superAdminSeeder } from "./utils/seeder";
+import { envVars } from "./app/configs/env";
+
 // import { envVars } from "./configs/env";
 
 let server: Server;
@@ -11,7 +11,7 @@ const starterServer = async () => {
   try {
     // console.log(envVars.NODE_ENV)
 
-    await mongoose.connect(envVars.DB_URL);
+    await mongoose.connect(envVars.DB_URL as string);
 
     console.log("connected to db");
 
@@ -25,7 +25,7 @@ const starterServer = async () => {
 
 (async () => {
   await starterServer();
-  await superAdminSeeder();
+  // await superAdminSeeder();
 })();
 
 process.on("unhandledRejection", (err) => {

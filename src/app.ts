@@ -1,25 +1,20 @@
 import cors from "cors";
 import express from "express";
-import { globalMiddleHandler } from "./middleware/globalErrorHandler";
-import { router } from "./routes";
-import NotFoundRoute from "./middleware/not_Found";
-import cookieParser from "cookie-parser";
-import passport from "passport";
-import expressSession from "express-session";
-import "../src/configs/passport";
-import { envVars } from "./configs/env";
+// import cookieParser from "cookie-parser";
+// import passport from "passport";
+import { router } from "./app/routes";
 
 const app = express();
-app.use(
-  expressSession({
-    secret: envVars.EXPRESS_SESSION_SECRET,
-    resave: false,
-    saveUninitialized: false,
-  })
-);
-app.use(passport.initialize());
-app.use(passport.session());
-app.use(cookieParser());
+// app.use(
+//   expressSession({
+//     secret: envVars.EXPRESS_SESSION_SECRET,
+//     resave: false,
+//     saveUninitialized: false,
+//   })
+// );
+// app.use(passport.initialize());
+// app.use(passport.session());
+// app.use(cookieParser());
 app.use(express.json());
 app.use(cors());
 
@@ -32,8 +27,8 @@ app.get("/", (req, res) => {
   });
 });
 
-app.use(globalMiddleHandler);
+// app.use(globalMiddleHandler);
 
-app.use(NotFoundRoute);
+// app.use(NotFoundRoute);
 
 export default app;
