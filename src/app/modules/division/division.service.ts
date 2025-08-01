@@ -29,6 +29,11 @@ const GetAllDivision = async () => {
 
   return division;
 };
+const GetSingleDivision = async (slug: string) => {
+  const division = await Division.findOne({ slug });
+
+  return division;
+};
 
 const UpdateDivision = async (id: string, payload: Partial<IDivision>) => {
   const { name, ...rest } = payload;
@@ -65,4 +70,5 @@ export const divisionService = {
   GetAllDivision,
   UpdateDivision,
   DeleteDivision,
+  GetSingleDivision,
 };

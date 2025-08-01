@@ -17,6 +17,8 @@ const tourSchema = new Schema<ITour>(
     description: { type: String },
     images: { type: [String], default: [] },
     location: { type: String },
+    departureLocation: { type: String, default: null },
+    arrivalLocation: { type: String, default: null },
     costFrom: { type: Number },
     startDate: { type: Date },
     endDate: { type: Date },

@@ -30,6 +30,20 @@ const GetAllDivision = CatchAsync(
     });
   }
 );
+const GetSingleDivision = CatchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const slug = req.params.slug;
+    console.log("hitting", slug);
+    const division = await divisionService.GetSingleDivision(slug);
+
+    sendResponse(res, {
+      success: true,
+      message: "Division retrieved Successfully",
+      statusCode: httpStatus.CREATED,
+      data: division,
+    });
+  }
+);
 
 const UpdateDivision = async (
   req: Request,
@@ -68,4 +82,5 @@ export const divisionController = {
   GetAllDivision,
   UpdateDivision,
   DeleteDivision,
+  GetSingleDivision,
 };
