@@ -2,7 +2,7 @@
 import { Server } from "http";
 import mongoose from "mongoose";
 import app from "./app";
-import { envVars } from "./app/configs/env";
+import { envVars } from "./configs/env";
 
 // import { envVars } from "./configs/env";
 

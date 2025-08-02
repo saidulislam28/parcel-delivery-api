@@ -1,8 +1,8 @@
 import cors from "cors";
 import express from "express";
+import { router } from "./routes";
 // import cookieParser from "cookie-parser";
 // import passport from "passport";
-import { router } from "./app/routes";
 
 const app = express();
 // app.use(
