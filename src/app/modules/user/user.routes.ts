@@ -1,9 +1,10 @@
-import { Request, Response, Router } from "express";
+import { Router } from "express";
+import { UserController } from "./user.controller";
 
 const router = Router();
 
-router.post("/", (req: Request, res: Response) => {
-  console.log("I'm here");
-});
+router.post("/create", UserController.CreateUser);
+router.get("/all-users", UserController.GetAllUser);
+router.patch("/:id", UserController.UpdateUser);
 
 export const userExport = router;
