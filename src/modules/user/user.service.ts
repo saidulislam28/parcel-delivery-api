@@ -1,6 +1,8 @@
 import bcrypt from "bcryptjs";
 import { IUser } from "./user.interface";
 import { User } from "./user.model";
+import httpStatus from "http-status-codes";
+import AppError from "../../helpers/CustomError";
 
 const CreateUser = async (data: Partial<IUser>) => {
   const { email, password, ...rest } = data;
@@ -8,7 +10,7 @@ const CreateUser = async (data: Partial<IUser>) => {
   const isUserExist = await User.findOne({ email: email });
 
   if (isUserExist) {
-    throw new Error("User already exist!!!!");
+    throw new AppError(httpStatus.BAD_REQUEST, "User already exist!!!!");
   }
 
   const hashedPassword = await bcrypt.hash(password as string, 10);
