@@ -33,9 +33,6 @@ const Login = async (data: Partial<IUser>) => {
   };
 };
 
-
-
-
 export const AuthService = {
   Login,
 };
