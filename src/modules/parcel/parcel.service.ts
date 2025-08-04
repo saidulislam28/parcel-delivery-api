@@ -29,6 +29,7 @@ const GetSingleUserParcel = async (userId: string) => {
   const parcel = await Parcel.find({ senderId: isUserExist.id });
   return parcel;
 };
+
 const CancelParcel = async (parcelId: string, userId: Types.ObjectId) => {
   const isParcelExist = await Parcel.findOne({ _id: parcelId });
 
@@ -69,9 +70,15 @@ const CancelParcel = async (parcelId: string, userId: Types.ObjectId) => {
   return updatedParcel;
 };
 
+const GetReceiverParcel = async (receiverId: string) => {
+  const parcel = await Parcel.find({ receiverId: receiverId });
+  return parcel;
+};
+
 export const ParcelService = {
   CreateParcel,
   GetAllParcel,
   GetSingleUserParcel,
   CancelParcel,
+  GetReceiverParcel,
 };
