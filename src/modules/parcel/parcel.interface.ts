@@ -29,6 +29,7 @@ export enum Status {
   Approved = "Approved",
   Requested = "Requested",
   Cancelled = "Cancelled",
+  Delivered = "Delivered",
 }
 
 export interface StatusLog {

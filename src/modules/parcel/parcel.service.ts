@@ -70,6 +70,46 @@ const CancelParcel = async (parcelId: string, userId: Types.ObjectId) => {
   return updatedParcel;
 };
 
+const DeliveredParcel = async (parcelId: string, userId: Types.ObjectId) => {
+  const isParcelExist = await Parcel.findOne({ _id: parcelId });
+
+  // console.log("isParcelExist", isParcelExist);
+  // console.log("userId", userId);
+
+  if (!isParcelExist) {
+    throw new AppError(httpStatus.NOT_FOUND, "Parcel Not found!!!");
+  }
+
+  if (!isParcelExist?.receiverId?.equals(userId)) {
+    throw new AppError(
+      httpStatus.BAD_REQUEST,
+      "You are not authorized for this parcel"
+    );
+  }
+
+  if (isParcelExist.status === Status.Delivered) {
+    throw new AppError(
+      httpStatus.BAD_REQUEST,
+      `Parcel is Already on ${isParcelExist.status} status!`
+    );
+  }
+
+  const updatedParcel = await Parcel.findOneAndUpdate(
+    {
+      _id: isParcelExist.id,
+    },
+    {
+      status: Status.Delivered,
+    },
+    {
+      new: true,
+      runValidators: true,
+    }
+  );
+
+  return updatedParcel;
+};
+
 const GetReceiverParcel = async (receiverId: string) => {
   const parcel = await Parcel.find({ receiverId: receiverId });
   return parcel;
@@ -81,4 +121,5 @@ export const ParcelService = {
   GetSingleUserParcel,
   CancelParcel,
   GetReceiverParcel,
+  DeliveredParcel,
 };

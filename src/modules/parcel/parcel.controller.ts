@@ -72,6 +72,28 @@ const CancelParcel = async (req: Request, res: Response) => {
     throw new AppError(httpStatus.BAD_REQUEST, error.message);
   }
 };
+const DeliveredParcel = async (req: Request, res: Response) => {
+  try {
+    const id: string = req.params.id;
+    const user: any = req.user;
+    console.log(id);
+
+    if (!id) {
+      throw new AppError(httpStatus.NOT_FOUND, "Not valid");
+    }
+
+    const parcel = await ParcelService.DeliveredParcel(id, user.userId);
+
+    res.send({
+      status: true,
+      message: "Parcel retrieved for single user successfully!!",
+      data: parcel,
+    });
+  } catch (error: any) {
+    console.log(error);
+    throw new AppError(httpStatus.BAD_REQUEST, error.message);
+  }
+};
 const GetReceiverParcel = async (req: Request, res: Response) => {
   try {
     const user: any = req.user;
@@ -98,5 +120,6 @@ export const ParcelController = {
   GetAllParcel,
   GetSingleUserParcel,
   CancelParcel,
-  GetReceiverParcel
+  GetReceiverParcel,
+  DeliveredParcel,
 };

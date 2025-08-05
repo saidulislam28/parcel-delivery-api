@@ -12,10 +12,15 @@ router.get(
   CheckAuth(Role.SENDER),
   ParcelController.GetSingleUserParcel
 );
-router.get(
+router.post(
   "/cancel-parcel/:id",
   CheckAuth(Role.SENDER),
   ParcelController.CancelParcel
+);
+router.post(
+  "/receiver-delivered/:id",
+  CheckAuth(Role.RECEIVER),
+  ParcelController.DeliveredParcel
 );
 router.get(
   "/receiver-parcel",
