@@ -27,5 +27,10 @@ router.get(
   CheckAuth(Role.RECEIVER),
   ParcelController.GetReceiverParcel
 );
+router.get(
+  "/receiver-parcel/delivered",
+  CheckAuth(Role.RECEIVER),
+  ParcelController.GetReceiverParcel
+);
 
 export const ParcelRouter = router;

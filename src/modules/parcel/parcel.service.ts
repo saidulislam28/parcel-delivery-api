@@ -109,6 +109,14 @@ const DeliveredParcel = async (parcelId: string, userId: Types.ObjectId) => {
 
   return updatedParcel;
 };
+const GetReceiverDeliveredParcel = async (userId: Types.ObjectId) => {
+  const ReceiverParcel = await Parcel.find({
+    receiverId: userId,
+    status: Status.Delivered,
+  });
+
+  return ReceiverParcel;
+};
 
 const GetReceiverParcel = async (receiverId: string) => {
   const parcel = await Parcel.find({ receiverId: receiverId });
@@ -122,4 +130,5 @@ export const ParcelService = {
   CancelParcel,
   GetReceiverParcel,
   DeliveredParcel,
+  GetReceiverDeliveredParcel,
 };
